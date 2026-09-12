@@ -23,7 +23,7 @@ Hooks.on("createChatMessage", async (msg) => {
         await socket.executeAsGM("deleteMessageRPS", msg.id);
     }
     else {
-        ChatMessage.create({ speaker: { alias: "Rock, Paper, Scissors!" }, content: "Rock, Paper, Scissors! only works when a GM is online.", whisper: [msg.user.id] });
+        ChatMessage.create({ speaker: { alias: "Rifle, Pistol, Shotgun!" }, content: "Rifle, Pistol, Shotguns! only works when a GM is online.", whisper: [msg.user.id] });
     }
 });
 
@@ -57,15 +57,15 @@ Hooks.on('renderChatMessage', async (msg, [html], messageData) => {
 
 
 function addSelectionListeners(messageid, html) {
-    const rockButton = html.querySelector('.rpsButton[data-choice="Rock"]');
-    const paperButton = html.querySelector('.rpsButton[data-choice="Paper"]');
-    const scissorsButton = html.querySelector('.rpsButton[data-choice="Scissors"]');
+    const rifleButton = html.querySelector('.rpsButton[data-choice="Rifle"]');
+    const pistolButton = html.querySelector('.rpsButton[data-choice="Pistol"]');
+    const shotgunButton = html.querySelector('.rpsButton[data-choice="Shotgun"]');
     const shootButton = html.querySelector('.rpsShootButton');
     const setSelectedChoiceBackgroundColor = (selectedChoice) => {
         const buttonElements = {
-            Rock: html.querySelector('.rpsButton[data-choice="Rock"]'),
-            Paper: html.querySelector('.rpsButton[data-choice="Paper"]'),
-            Scissors: html.querySelector('.rpsButton[data-choice="Scissors"]'),
+            Rifle: html.querySelector('.rpsButton[data-choice="Rifle"]'),
+            Pistol: html.querySelector('.rpsButton[data-choice="Pistol"]'),
+            Shotgun: html.querySelector('.rpsButton[data-choice="Shotgun"]'),
         };
 
         for (const choice in buttonElements) {
@@ -75,35 +75,32 @@ function addSelectionListeners(messageid, html) {
         }
     };
     let selectedChoice;
-    if (rockButton && paperButton && scissorsButton) {
-        rockButton.addEventListener('click', () => {
-            // Disable Rock, enable Paper and Scissors
-            rockButton.disabled = true;
-            paperButton.disabled = false;
-            scissorsButton.disabled = false;
+    if (rifleButton && pistolButton && shotgunButton) {
+        rifleButton.addEventListener('click', () => {
+            rifleButton.disabled = true;
+            pistolButton.disabled = false;
+            shotgunButton.disabled = false;
             shootButton.disabled = false;
-            selectedChoice = "rock";
-            setSelectedChoiceBackgroundColor('Rock');
+            selectedChoice = "rifle";
+            setSelectedChoiceBackgroundColor('Rifle');
         });
 
-        paperButton.addEventListener('click', () => {
-            // Disable Paper, enable Rock and Scissors
-            rockButton.disabled = false;
-            paperButton.disabled = true;
-            scissorsButton.disabled = false;
+        pistolButton.addEventListener('click', () => {
+            rifleButton.disabled = false;
+            pistolButton.disabled = true;
+            shotgunButton.disabled = false;
             shootButton.disabled = false;
-            selectedChoice = "paper";
-            setSelectedChoiceBackgroundColor('Paper');
+            selectedChoice = "pistol";
+            setSelectedChoiceBackgroundColor('Pistol');
         });
 
-        scissorsButton.addEventListener('click', () => {
-            // Disable Scissors, enable Rock and Paper
-            rockButton.disabled = false;
-            paperButton.disabled = false;
-            scissorsButton.disabled = true;
+        shotgunButton.addEventListener('click', () => {
+            rifleButton.disabled = false;
+            pistolButton.disabled = false;
+            shotgunButton.disabled = true;
             shootButton.disabled = false;
-            selectedChoice = "scissors";
-            setSelectedChoiceBackgroundColor('Scissors');
+            selectedChoice = "shotgun";
+            setSelectedChoiceBackgroundColor('Shotgun');
         });
     }
     if (shootButton) {
@@ -117,18 +114,18 @@ function addSelectionListeners(messageid, html) {
             else {
                 const linkedMessageChoice = linkedMessage.flags.rockpaperscissors.choice;
                 const messageChoice = selectedChoice
-                const cardTitle = message.user.name + " and " + linkedMessage.user.name + " played Rock, Paper, Scissors!";
+                const cardTitle = message.user.name + " and " + linkedMessage.user.name + " played Rifle, Pistol, Shotgun!";
                 let result = message.user.name + " played <strong>" + messageChoice + "</strong>!<br><br>" + linkedMessage.user.name + " played <strong>" + linkedMessageChoice + "</strong>!<br><hr />";
                 if (messageChoice === linkedMessageChoice) {
                     result += "<strong>It's a tie!</strong>";
                 }
-                else if ((messageChoice === "scissors" && linkedMessageChoice === "paper") || (messageChoice === "paper" && linkedMessageChoice === "rock") || (messageChoice === "rock" && linkedMessageChoice === "scissors")) {
+                else if ((messageChoice === "rifle" && linkedMessageChoice === "shotgun") || (messageChoice === "shotgun" && linkedMessageChoice === "pistol") || (messageChoice === "pistol" && linkedMessageChoice === "rifle")) {
                     result += "<strong>" + message.user.name + " won! </strong>";
                 }
                 else {
                     result += "<strong>" + linkedMessage.user.name + " won! </strong>";
                 }
-                ChatMessage.create({ speaker: { alias: "Rock, Paper, Scissors!" }, content: `<div style="text-align: center;" class="chat-card"><header class="card-header flexrow"><h3>` + cardTitle + `</h3></header><section class="card-content">` + result + `</section></div>` })
+                ChatMessage.create({ speaker: { alias: "Rifle, Pistol, Shotgun!" }, content: `<div style="text-align: center;" class="chat-card"><header class="card-header flexrow"><h3>` + cardTitle + `</h3></header><section class="card-content">` + result + `</section></div>` })
                 socket.executeAsGM("deleteMessageRPS", message.id);
                 socket.executeAsGM("deleteMessageRPS", linkedMessage.id);
             }
@@ -145,7 +142,7 @@ function deleteMessageRPS(messageid) {
 function startRPS(message) {
     const activeUsers = game.users.filter(user => user.active && user.id !== message.user.id);
     if (activeUsers.length === 0) {
-        ChatMessage.create({ speaker: { alias: "Rock, Paper, Scissors!" }, content: "No other active users found.", whisper: [message.user.id] });
+        ChatMessage.create({ speaker: { alias: "Rifle, Pistol, Shotgun!" }, content: "No other active users found.", whisper: [message.user.id] });
         return;
     }
     const dropdownOptions = activeUsers.map(user => ({
@@ -158,7 +155,7 @@ function startRPS(message) {
     const startButtonHtml = `<button class="rpsStartButton">Start</button>`;
     const contentHtml = `
     <div style="text-align: center;">
-        Select a user to play Rock, Paper, Scissors!
+        Select a user to play Rifle, Pistol, Shotgun!
         <p>
             <div style="margin: 0 auto; display: inline-block;">
                 ${dropdownHtml}
@@ -167,22 +164,20 @@ function startRPS(message) {
         <div>${startButtonHtml}</div>
     </div>
     `;
-    ChatMessage.create({ speaker: { alias: "Rock, Paper, Scissors!" }, content: contentHtml, whisper: [message.user.id] });
+    ChatMessage.create({ speaker: { alias: "Rifle, Pistol, Shotgun!" }, content: contentHtml, whisper: [message.user.id] });
 }
 
 async function otherUserRPS(userid, message) {
     const initiatorsName = game.users.get(message.user).name;
     Hooks.once("createChatMessage", (msg) => {
-        socket.executeAsGM("updateMessageRPS", message._id, { content: "You're playing Rock, Paper, Scissors with <strong>" + msg.user.name + "</strong>!\nMake your choice and click \"<strong>Shoot!</strong>\"\n" + game.messages.get(message._id).content, flags: { rockpaperscissors: { linkedMessage: msg.id, ready: false } } });
+        socket.executeAsGM("updateMessageRPS", message._id, { content: "You're playing Rifle, Pistol, Shotgun with <strong>" + msg.user.name + "</strong>!\nMake your choice and click \"<strong>Shoot!</strong>\"\n" + game.messages.get(message._id).content, flags: { rockpaperscissors: { linkedMessage: msg.id, ready: false } } });
     });
-    await ChatMessage.create({ speaker: { alias: "Rock, Paper, Scissors!" }, content: "<strong>" + initiatorsName + "</strong> wants to play Rock, Paper, Scissors with you!\nMake your choice and click \"<strong>Shoot!</strong>\"\n" + generateRPSButtons(250), whisper: [userid], flags: { rockpaperscissors: { linkedMessage: message._id, ready: false } } });
+    await ChatMessage.create({ speaker: { alias: "Rifle, Pistol, Shotgun!" }, content: "<strong>" + initiatorsName + "</strong> wants to play Rifle, Pistol, Shotgun with you!\nMake your choice and click \"<strong>Shoot!</strong>\"\n" + generateRPSButtons(250), whisper: [userid], flags: { rockpaperscissors: { linkedMessage: message._id, ready: false } } });
 }
 
 function generateRPSButtons(width) {
-    // Calculate the button size based on 30% of the width
     const buttonSize = `${(width * 0.3)}px`;
 
-    // Create HTML for the three buttons with CSS styles
     const buttonStyle = `width: ${buttonSize}; height: ${buttonSize}; background-size: contain; background-repeat: no-repeat;`;
 
     const buttonsContainerStyle = `
@@ -190,12 +185,11 @@ function generateRPSButtons(width) {
                     justify-content: center; /* Center horizontally */
                 `;
 
-    const rockButton = `<button class="rpsButton" data-choice="Rock" style="${buttonStyle} background-image: url(modules/rockpaperscissors/vectors/Rock.png);"></button>`;
-    const paperButton = `<button class="rpsButton" data-choice="Paper" style="${buttonStyle} background-image: url(modules/rockpaperscissors/vectors/Paper.png);"></button>`;
-    const scissorsButton = `<button class="rpsButton" data-choice="Scissors" style="${buttonStyle} background-image: url(modules/rockpaperscissors/vectors/Scissors.png);"></button>`;
+    const rifleButton = `<button class="rpsButton" data-choice="Rifle" style="${buttonStyle} background-image: url(modules/rockpaperscissors/vectors/Rifle.png);"></button>`;
+    const pistolButton = `<button class="rpsButton" data-choice="Pistol" style="${buttonStyle} background-image: url(modules/rockpaperscissors/vectors/Pistol.png);"></button>`;
+    const shotgunButton = `<button class="rpsButton" data-choice="Shotgun" style="${buttonStyle} background-image: url(modules/rockpaperscissors/vectors/Shotgun.png);"></button>`;
     const shootButtonHtml = `<div><button class="rpsShootButton"><strong>Shoot!</strong></button></div>`;
-    // Combine the buttons within a container div
-    return `<div style="${buttonsContainerStyle}">${rockButton}${paperButton}${scissorsButton}</div>${shootButtonHtml}`;
+    return `<div style="${buttonsContainerStyle}">${rifleButton}${pistolButton}${shotgunButton}</div>${shootButtonHtml}`;
 }
 
 function updateMessageRPS(messageid, updateObject) {

@@ -1,6 +1,6 @@
 {
-  "title": "Rock, Paper, Scissors!",
-  "description": "Play rock, paper, scissors with another user!",
+  "title": "Rifle, Pistol, Shotguns!",
+  "description": "Play Rifle, Pistol, Shotguns with another user!",
   "version": "1.0.2",
   "scripts": ["rps.js"],
   "socket": true,
