@@ -4,15 +4,15 @@
   "version": "1.0.2",
   "scripts": ["rps.js"],
   "socket": true,
-  "url": "https://github.com/therealguy90/fvtt-rps",
-  "manifest": "https://github.com/therealguy90/fvtt-rps/releases/latest/download/module.json",
-  "download": "https://github.com/therealguy90/fvtt-rps/releases/download/1.0.2/rockpaperscissors.zip",
-  "readme": "https://github.com/therealguy90/fvtt-rps/blob/main/README.md",
+  "url": "https://github.com/mechanoid23/fvtt-riflepistolshotguns",
+  "manifest": "https://raw.githubusercontent.com/mechanoid23/fvtt-riflepistolshotguns/main/module.json",
+  "download": "https://github.com/mechanoid23/fvtt-riflepistolshotguns/archive/refs/tags/fork_01.zip",
+  "readme": "https://github.com/mechanoid23/fvtt-riflepistolshotguns/blob/main/README.md",
   "id": "rockpaperscissors",
   "authors": [
     {
-      "name": "loki123",
-      "discord": "loki123"
+      "name": "mechanoid23",
+      "discord": "lordcalebprime"
     }
   ],
   "compatibility": {
