@@ -23,7 +23,7 @@
       {
         "id": "socketlib",
         "type": "module",
-        "manifest": "https://raw.githubusercontent.com/mechanoid23/fvtt-riflepistolshotguns/main/module.json",
+        "manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/master/module.json",
         "compatibility": {
           "verified": "1.0.13"
         }
