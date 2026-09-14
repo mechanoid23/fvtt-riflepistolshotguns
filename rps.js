@@ -185,9 +185,9 @@ function generateRPSButtons(width) {
                     justify-content: center; /* Center horizontally */
                 `;
 
-    const rifleButton = `<button class="rpsButton" data-choice="Rifle" style="${buttonStyle} background-image: url(modules/rockpaperscissors/vectors/Rifle.png);"></button>`;
-    const pistolButton = `<button class="rpsButton" data-choice="Pistol" style="${buttonStyle} background-image: url(modules/rockpaperscissors/vectors/Pistol.png);"></button>`;
-    const shotgunButton = `<button class="rpsButton" data-choice="Shotgun" style="${buttonStyle} background-image: url(modules/rockpaperscissors/vectors/Shotgun.png);"></button>`;
+    const rifleButton = `<button class="rpsButton" data-choice="Rifle" style="${buttonStyle} background-image: url(modules/rockpaperscissors/vectors/smart_rifle.png);"></button>`;
+    const pistolButton = `<button class="rpsButton" data-choice="Pistol" style="${buttonStyle} background-image: url(modules/rockpaperscissors/vectors/revolver.png);"></button>`;
+    const shotgunButton = `<button class="rpsButton" data-choice="Shotgun" style="${buttonStyle} background-image: url(modules/rockpaperscissors/vectors/combat_shotgun.png);"></button>`;
     const shootButtonHtml = `<div><button class="rpsShootButton"><strong>Shoot!</strong></button></div>`;
     return `<div style="${buttonsContainerStyle}">${rifleButton}${pistolButton}${shotgunButton}</div>${shootButtonHtml}`;
 }
